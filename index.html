@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LutsDiamond Store</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Poppins', Arial, sans-serif;
+      background-color: #1c1c1c;
+      color: #fff;
+      scroll-behavior: smooth;
+    }
+
+    /* HEADER */
+    header {
+      width: 100%;
+      background-color: #2a2a2a;
+      padding: 100px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-bottom: 3px solid #ff0000;
+    }
+
+    header img {
+      width: 350px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px #ff0000;
+    }
+
+    header h1 {
+      margin-top: 15px;
+      font-size: 50px;
+      color: #ff0000;
+      text-shadow: 0 0 8px rgba(255,0,0,0.8);
+    }
+
+    /* NAVBAR */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #2b2b2b;
+      padding: 15px 40px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    }
+    nav .logo { font-weight: bold; font-size: 20px; color: #ff0000; }
+    nav ul { display: flex; list-style: none; gap: 25px; }
+    nav ul li a {
+      text-decoration: none;
+      color: #ccc;
+      transition: 0.3s;
+    }
+    nav ul li a:hover { color: #ff0000; }
+
+    /* SECTION UMUM */
+    section { padding: 40px 0; }
+
+    /* DIAMOND */
+    .diamond-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .diamond-header {
+      font-size: 18px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #444;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+    .diamond-header::before {
+      content: "◆";
+      color: #ff0303;
+      margin-right: 10px;
+    }
+    .diamond-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 15px;
+    }
+    .diamond-card {
+      background-color: #2d2d2d;
+      border-radius: 12px;
+      padding: 15px;
+      text-align: left;
+      position: relative;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    }
+    .diamond-card:hover {
+      transform: scale(1.03);
+      background-color: #3a3a3a;
+    }
+    .diamond-card img { width: 38px; vertical-align: middle; }
+    .diamond-title { font-weight: bold; font-size: 14px; margin-top: 10px; }
+    .diamond-price { color: #ccc; font-size: 13px; margin-top: 5px; }
+    .discount-badge {
+      position: absolute;
+      top: 10px; right: 10px;
+      background-color: #ff3333;
+      color: white;
+      padding: 3px 8px;
+      border-radius: 5px;
+      font-size: 11px;
+      font-weight: bold;
+    }
+
+    /* FORM INFO */
+    .form-container {
+      background-color: #2a2a2a;
+      border-radius: 12px;
+      padding: 25px 30px;
+      max-width: 700px;
+      margin: 60px auto;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+    }
+    .section-header {
+      font-size: 18px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #444;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+    .section-header::before {
+      content: "◆";
+      color: #ff0000;
+      margin-right: 10px;
+    }
+    label {
+      font-size: 14px;
+      margin-bottom: 5px;
+      display: block;
+      color: #ccc;
+    }
+    input {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 25px;
+      border: none;
+      background-color: #3a3a3a;
+      color: white;
+      font-size: 14px;
+      outline: none;
+      transition: 0.3s;
+    }
+    input:focus { background-color: #444; box-shadow: 0 0 6px #ff0000; }
+    .input-row { display: flex; gap: 10px; margin-bottom: 15px; }
+    .submit-btn {
+      background-color: #ff0000;
+      border: none;
+      border-radius: 25px;
+      color: white;
+      font-weight: bold;
+      font-size: 15px;
+      padding: 12px;
+      width: 100%;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 10px;
+    }
+    .submit-btn:hover { background-color: #6e6d6d; }
+
+    /* PEMBAYARAN */
+    .payment-section {
+      background-color: #2a2a2a;
+      border-radius: 12px;
+      padding: 25px 30px;
+      max-width: 700px;
+      margin: 50px auto;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+    }
+    .payment-option {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px;
+      background-color: #333;
+      border-radius: 10px;
+      margin-top: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .payment-option:hover { background-color: #444; }
+    .payment-option.selected {
+      border: 2px solid #ff0000;
+      background-color: #3b3b3b;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #222;
+      color: #777;
+      font-size: 13px;
+      margin-top: 60px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="logo2.png" alt="Poster LutsDiamond Store">
+    <h1>LutsDiamond Store</h1>
+  </header>
+
+  <nav>
+    <div class="logo">LutsDiamond Store</div>
+    <ul>
+      <li><a href="#pilihan">Pilihan</a></li>
+      <li><a href="#beranda">Informasi</a></li>
+      <li><a href="#pembayaran">Pembayaran</a></li>
+    </ul>
+  </nav>
+
+  <!-- PILIH NOMINAL -->
+  <section id="pilihan">
+    <div class="diamond-section">
+      <div class="diamond-header">Pilih Nominal Top Up</div>
+      <div class="diamond-grid" id="diamondGrid">
+        <div class="diamond-card" data-nominal="Rp 154.000">
+          <span class="discount-badge">10% OFF</span>
+          <img src="dm.png" alt="">
+          <div class="diamond-title">568 (503 + 65 Bonus) Diamonds</div>
+          <div class="diamond-price">Rp 154.000,-</div>
+        </div>
+        <div class="diamond-card" data-nominal="Rp 1.534.498">
+          <span class="discount-badge">20% OFF</span>
+          <img src="dm.png" alt="">
+          <div class="diamond-title">6030 (5124 + 906 Bonus) Diamonds</div>
+          <div class="diamond-price">Rp 1.534.498,-</div>
+        </div>
+         <div class="diamond-card" data-nominal="Rp 1.534.498">
+          <span class="discount-badge">20% OFF</span>
+          <img src="dm.png" alt="">
+          <div class="diamond-title">6030 (5124 + 906 Bonus) Diamonds</div>
+          <div class="diamond-price">Rp 1.534.498,-</div>
+        </div>
+         <div class="diamond-card" data-nominal="Rp 1.534.498">
+          <span class="discount-badge">20% OFF</span>
+          <img src="dm.png" alt="">
+          <div class="diamond-title">6030 (5124 + 906 Bonus) Diamonds</div>
+          <div class="diamond-price">Rp 1.534.498,-</div>
+        </div>
+         <div class="diamond-card" data-nominal="Rp 1.534.498">
+          <span class="discount-badge">20% OFF</span>
+          <img src="dm.png" alt="">
+          <div class="diamond-title">6030 (5124 + 906 Bonus) Diamonds</div>
+          <div class="diamond-price">Rp 1.534.498,-</div>
+        </div>
+         <div class="diamond-card" data-nominal="Rp 1.534.498">
+          <span class="discount-badge">20% OFF</span>
+          <img src="dm.png" alt="">
+          <div class="diamond-title">6030 (5124 + 906 Bonus) Diamonds</div>
+          <div class="diamond-price">Rp 1.534.498,-</div>
+        </div>
+         <div class="diamond-card" data-nominal="Rp 1.534.498">
+          <span class="discount-badge">20% OFF</span>
+          <img src="dm.png" alt="">
+          <div class="diamond-title">6030 (5124 + 906 Bonus) Diamonds</div>
+          <div class="diamond-price">Rp 1.534.498,-</div>
+        </div>
+         <div class="diamond-card" data-nominal="Rp 1.534.498">
+          <span class="discount-badge">20% OFF</span>
+          <img src="dm.png" alt="">
+          <div class="diamond-title">6030 (5124 + 906 Bonus) Diamonds</div>
+          <div class="diamond-price">Rp 1.534.498,-</div>
+        </div>
+         <div class="diamond-card" data-nominal="Rp 1.534.498">
+          <span class="discount-badge">20% OFF</span>
+          <img src="dm.png" alt="">
+          <div class="diamond-title">6030 (5124 + 906 Bonus) Diamonds</div>
+          <div class="diamond-price">Rp 1.534.498,-</div>
+        </div>
+         <div class="diamond-card" data-nominal="Rp 1.534.498">
+          <span class="discount-badge">20% OFF</span>
+          <img src="dm.png" alt="">
+          <div class="diamond-title">6030 (5124 + 906 Bonus) Diamonds</div>
+          <div class="diamond-price">Rp 1.534.498,-</div>
+        </div>
+         <div class="diamond-card" data-nominal="Rp 1.534.498">
+          <span class="discount-badge">20% OFF</span>
+          <img src="dm.png" alt="">
+          <div class="diamond-title">6030 (5124 + 906 Bonus) Diamonds</div>
+          <div class="diamond-price">Rp 1.534.498,-</div>
+        </div>
+        <div class="diamond-card" data-nominal="Rp 12.500">
+          <img src="dm.png" alt="">
+          <div class="diamond-title">44 (40 + 4 Bonus) Diamonds</div>
+          <div class="diamond-price">Rp 12.500,-</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INFORMASI PELANGGAN -->
+  <section id="beranda">
+    <div class="form-container">
+      <div class="section-header">Informasi Pelanggan</div>
+      <label>Masukkan User ID</label>
+      <div class="input-row">
+        <input type="text" id="userID" placeholder="User ID">
+        <input type="text" id="serverID" placeholder="Server ID">
+      </div>
+
+      <label>Nomor WhatsApp</label>
+      <input type="text" id="waNumber" placeholder="08xxxxxxxxxx">
+
+      <button id="lanjut-btn" class="submit-btn">Lanjutkan</button>
+      <div class="hint">Masukkan Nomor Untuk Riwayat Pesanan.</div>
+    </div>
+  </section>
+
+  <!-- PEMBAYARAN -->
+  <section id="pembayaran">
+    <div class="payment-section">
+      <div class="section-header">Pilih Metode Pembayaran</div>
+      <div class="payment-option">DANA</div>
+      <div class="payment-option">GoPay</div>
+      <div class="payment-option">OVO</div>
+      <div class="payment-option">Transfer Bank</div>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 LutsDiamond Store — Aman & Terpercaya 💎
+  </footer>
+
+  <script>
+    // Klik "Lanjutkan" → Scroll ke Pembayaran
+    document.getElementById("lanjut-btn").addEventListener("click", function() {
+      const userID = document.getElementById("userID").value.trim();
+      const wa = document.getElementById("waNumber").value.trim();
+      if (userID === "" || wa === "") {
+        alert("Harap isi User ID dan Nomor WhatsApp terlebih dahulu!");
+        return;
+      }
+      document.getElementById("pembayaran").scrollIntoView({ behavior: "smooth" });
+    });
+
+    // Pilih Diamond → Tampilkan nominal terpilih
+    document.querySelectorAll(".diamond-card").forEach(card => {
+      card.addEventListener("click", () => {
+        document.querySelectorAll(".diamond-card").forEach(c => c.classList.remove("selected"));
+        card.classList.add("selected");
+        card.style.border = "2px solid #ff0000";
+        setTimeout(() => {
+          document.getElementById("beranda").scrollIntoView({ behavior: "smooth" });
+        }, 300);
+      });
+    });
+
+    // Pilih Metode Pembayaran
+    document.querySelectorAll(".payment-option").forEach(opt => {
+      opt.addEventListener("click", () => {
+        document.querySelectorAll(".payment-option").forEach(o => o.classList.remove("selected"));
+        opt.classList.add("selected");
+        alert("Metode pembayaran: " + opt.textContent + " dipilih.");
+      });
+    });
+  </script>
+</body>
+</html>
